@@ -5,7 +5,7 @@ public class uri1608 {
   static InputStreamReader ir = new InputStreamReader(System.in);
   static BufferedReader in = new BufferedReader(ir);
 
-  static int money, numberIngredients, numberCakeTypes, bestOption;
+  static int money, numberIngredients, numberCakes, bestOption;
   static int[] priceIngredients;
   static List<Map> recipes;
 
@@ -18,21 +18,20 @@ public class uri1608 {
       line = in.readLine().split(" ");
       money = Integer.parseInt(line[0]);
       numberIngredients = Integer.parseInt(line[1]);
-      numberCakeTypes = Integer.parseInt(line[2]);
+      numberCakes = Integer.parseInt(line[2]);
 
       priceIngredients = new int[numberIngredients];
       line = in.readLine().split(" ");
       for (int i = 0; i < numberIngredients; ++i)
       { priceIngredients[i] = Integer.parseInt(line[i]); }
 
-      for (int b = 0; b < numberCakeTypes; ++b) {
+      for (int b = 0; b < numberCakes; ++b) {
         line = in.readLine().split(" ");
-        int kind = Integer.parseInt(line[0]);
+        int quantity = Integer.parseInt(line[0]);
         recipe = new HashMap<Integer, Integer>();
 
-        for (int k = 0; k < kind; k++) {
-          recipe.put(Integer.parseInt(line[2*k-1]), Integer.parseInt(line[2*k]));
-        }
+        for (int k = 1; k <= quantity; k++) // recipe.put(what, howMany);
+        { recipe.put(Integer.parseInt(line[2*k-1]), Integer.parseInt(line[2*k])); }
         recipes.add(recipe);
       }
 
@@ -42,29 +41,33 @@ public class uri1608 {
   }
 
   static void processData() {
-    int[] cakePrice = new int[numberCakeTypes];
-    int price, cake, ingredient, preferredCake = money;
+    int[] cakePrice = new int[numberCakes];
+    int price, cake, ingredient, preferredCake = 0;
     Map recipe;
 
-    for (cake = 0; cake < numberCakeTypes; ++cake) {
+    for (cake = 0; cake < numberCakes; ++cake) {
       price = 0;
       recipe = recipes.get(cake);
 
       // determine each cake price
       for (ingredient = 0; ingredient < numberIngredients; ++ingredient) {
-        price += (recipe.containsKey(ingredient))? (int) recipe.get(ingredient): 0;
+        //System.out.println(recipe.get(ingredient));
+        price += (recipe.containsKey(ingredient))?
+          (int) recipe.get(ingredient) * priceIngredients[ingredient]: 0;
       }
 
       // decide maximum number of cakes
+      //System.out.println("  " + cake + ": " + price);
       cakePrice[cake] = price;
-      if (money % price < preferredCake) preferredCake = cake;
+      if (price < cakePrice[preferredCake]) preferredCake = cake;
     }
 
     bestOption = preferredCake;
+    numberCakes = money / cakePrice[bestOption];
   }
 
   static void writeData() {
-    System.out.println(bestOption);
+    System.out.println(numberCakes);
   }
 
   public static void main(String[] args) throws IOException {
