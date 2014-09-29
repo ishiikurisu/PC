@@ -1,5 +1,6 @@
-import java.util.*;
-import java.io.*;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.io.IOException;
 
 public class uri1351 {
   static InputStreamReader ir = new InputStreamReader(System.in);
@@ -10,6 +11,26 @@ public class uri1351 {
   static double[] prices;
   static double finalCost;
 
+  /* AUXILIARY FUNCTIONS */
+  static boolean possibleToAdd(int currentAisle, int productIndex) {
+    int currentProduct = products[productIndex];
+
+    while (currentAisle < numberAisles && productIndex < numberProducts) {
+      if (aisles[currentAisle] == currentProduct) {
+        productIndex++;
+        if (productIndex < numberProducts)
+          productIndex = products[productIndex];
+      }
+      currentAisle++;
+    }
+
+    if (productIndex == numberProducts)
+      return true;
+    else
+      return false;
+  }
+
+  /* MAIN FUNCTIONS */
   static boolean readData() throws IOException {
     boolean flag = true;
     String[] line;
@@ -38,61 +59,59 @@ public class uri1351 {
       numberProducts = numberAisles = 0;
     }
 
-    if (numberProducts ==  0 && numberAisles == 0) flag = false;
+    if (numberProducts == 0 || numberAisles == 0) flag = false;
     return flag;
   }
 
   static void processData() {
-    finalCost = 0.0;
-    int product, aisle, aisleMemory = 0, addedItens = 0;
     double[] costs = new double[numberProducts];
+    int addedItens = 0;
+    int position = 0;
+    int product = 0;
+    int memory = 0;
+    int item;
+    finalCost = 0;
 
-    for (int i = 0; i < numberProducts; ++i) {
-      product = products[i];
-      aisle = aisleMemory;
+    for (item = 0; item < numberProducts; ++item) {
+      product = products[item];
+      position = memory;
 
-      // first search
-      while (aisle < numberAisles && aisles[aisle] != product)
-        ++aisle;
-      if (aisles[aisle] == product) {
-        costs[i] = prices[aisle];
-        aisleMemory = aisle;
-        addedItens++;
+      try {
+        while (aisles[position] != product && position < numberAisles)
+          position++;
+      }
+      catch (Exception ArrayIndexOutOfBoundsException) {
+        position = numberAisles;
       }
 
-      // search until end
-      while (aisle < numberAisles) {
+      if (position == numberAisles) break;
+      else {
+        costs[item] = prices[position];
+        memory = position + 1;
+        ++addedItens;
+        ++position;
 
-        // if it is a better option
-        if (aisles[aisle] == product && prices[aisle] < costs[i]) {
-          // and if not impossible to add it
-          boolean flag = false;
-          int p = i, a = aisle;
-          while (a < numberAisles && p < numberProducts) {
-            if (aisles[a] == products[p])
-            { p++; }
-            a++;
+        while (position < numberAisles) {
+          if (aisles[position] == product && prices[position] < costs[item]) {
+            if (!possibleToAdd(position, item)) break;
+            else {
+              costs[item] = prices[position];
+              memory = position + 1;
+            }
           }
-          if (p == numberProducts) flag = true;
-
-          // then add this item
-          if (flag == true) {
-            costs[i] = prices[aisle];
-            aisleMemory = aisle;
-          }
+          ++position;
         }
-        ++aisle;
       }
     }
 
     if (addedItens == numberProducts)
       for (product = 0; product < numberProducts; ++product)
         finalCost += costs[product];
-    else finalCost = 0;
+    else finalCost = -1;
   }
 
   static void writeData() {
-    if (finalCost == 0)
+    if (finalCost < 0)
       System.out.println("Impossible");
     else
       System.out.printf("%.2f\n", finalCost);
