@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.LinkedList;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class uri1211 {
   static InputStreamReader ir = new InputStreamReader(System.in);
@@ -28,13 +30,13 @@ public class uri1211 {
   }
 
   static void processData() {
-    List phoneRelation = new LinkedList<List>();
-    List partialRelation = new LinkedList<Integer>();
-    List tempRelation;
+    Set phones = new TreeSet<Integer>();
     String phone;
     result = 0;
 
-    
+    for (int p = 0; p < numberPhones; ++p) {
+      
+    }
   }
 
   static void writeData() {

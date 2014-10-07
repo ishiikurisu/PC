@@ -25,7 +25,6 @@ public class uri1110 {
       while (deck.size() > 1) {
         discardedCards.add(deck.remove(0));
         deck.add(deck.remove(0));
-        --deckSize;
       }
 
       System.out.print("Discarded cards: ");

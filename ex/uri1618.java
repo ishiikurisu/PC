@@ -51,7 +51,6 @@ public class uri1618 {
       }
 
       // checking if point is within boundaries
-      
       boolean result = true;
 
       for (int x = 0; x < 6; ++x) {
