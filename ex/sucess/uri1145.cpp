@@ -12,14 +12,14 @@ main()
 	
 	while (numb <= limit)
 	{
-		while (flag < line)	
+		while (flag < line && numb <= limit)	
 		{
-			cout << numb << " ";
+			cout << numb;
+			if (flag != line - 1) cout << " ";
 			numb++;
 			flag++;
 		}
 		cout << endl;
 		flag = 0;
 	}
-	cout << endl;
 }

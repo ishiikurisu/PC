@@ -45,7 +45,7 @@ void process()
     limit = (vc.at(0) < vc.at(1))? vc.at(0): vc.at(1);
 
     mdc = 1;
-    for (int i = 1; i <= limit; i++)
+    for (int i = 2; i <= limit; i++)
       if (vc.at(0) % i == 0 && vc.at(1) % i == 0)
         mdc = i;
 

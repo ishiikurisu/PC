@@ -5,16 +5,19 @@ using namespace std;
 
 main()
 {
-  int numsen;
-  list<string> sentences;
+	int nc;
+	list<string> sentences;
 
-  cin >> numsen;
-  while (numsen > 0)
-  {
-    for (int s = 0; s < numsen; ++s)
-    {
-      string sentence;
-      cin >> sentence;
-    }
-  }
+	cin >> nc;
+	while (nc > 0)
+	{
+		/* read sentences */
+		int ns = 0;
+		for (int c = 0; c < nc; c++)
+		{
+			
+		}
+
+		cin >> nc;
+	}
 }

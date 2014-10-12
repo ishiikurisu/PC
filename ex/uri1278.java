@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.LinkedList;
-import java.util.regex.*;
 
 public class uri1278 {
   static InputStreamReader ir = new InputStreamReader(System.in);
