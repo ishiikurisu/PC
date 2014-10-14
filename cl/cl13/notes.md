@@ -1,3 +1,5 @@
+    É importante estudar
+
 # Backtracking
 
 Estratégia para lidar com problemas, como State Space Problems. Esta estratégia
@@ -28,3 +30,5 @@ Problemas sugeridos
 -------------------
 + uva780
 + uva10255
++ uva861
++ uva10181

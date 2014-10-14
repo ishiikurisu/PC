@@ -11,7 +11,6 @@ public class uri1610 {
     int numberCases = Integer.parseInt(in.readLine());
     BitSet path;
     String[] line;
-    long past, future;
     int dom, sub;
     int doc, fil;
     int docs, rels;
@@ -19,8 +18,6 @@ public class uri1610 {
     boolean outlet;
 
     for (int c = 0; c < numberCases; c++) {
-      //past = System.nanoTime();
-
       /* read data */
       line = in.readLine().split(" ");
       docs = Integer.parseInt(line[0]);
@@ -56,9 +53,6 @@ public class uri1610 {
         System.out.println("SIM");
       else
         System.out.println("NAO");
-
-      //future = System.nanoTime();
-      //System.out.printf("  %.2fms\n", (future-past)/1000000.0);
     }
   }
 }

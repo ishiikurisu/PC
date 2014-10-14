@@ -1,15 +1,16 @@
-import java.util.*;
-import java.io.*;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.List;
+import java.util.ArrayList;
 
 public class uri1110 {
   static InputStreamReader ir = new InputStreamReader(System.in);
   static BufferedReader in = new BufferedReader(ir);
 
   static List populateDeck(int size) {
-    List sequence = new LinkedList<Integer>();
-
+    List sequence = new ArrayList<Integer>();
     for (int n = 1; n <= size; ++n) sequence.add(n);
-
     return sequence;
   }
 
@@ -20,7 +21,7 @@ public class uri1110 {
     deckSize = Integer.parseInt(in.readLine());
     while (deckSize > 0) {
       deck = populateDeck(deckSize);
-      discardedCards = new LinkedList<Integer>();
+      discardedCards = new ArrayList<Integer>();
 
       while (deck.size() > 1) {
         discardedCards.add(deck.remove(0));
