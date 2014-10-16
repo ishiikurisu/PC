@@ -40,8 +40,7 @@ public class uri1136 {
 
       for (int i = 0; i < numberBalls; ++i) {
         for (int j = 0; j < numberBalls; ++j) {
-          diff = balls[i] - balls[j];
-          if (diff < 0) diff = -diff;
+          diff = Math.abs(balls[i] - balls[j]);
           addedDiffs.add(diff);
         }
       }
