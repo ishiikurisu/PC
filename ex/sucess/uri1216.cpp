@@ -12,9 +12,11 @@ main()
 	cout << fixed << setprecision(1);
 	while (getline(cin, inlet))
 	{
-		cin >> d;
+		getline(cin, inlet);
+		d = int(inlet);
+		// cin >> d;
 		m += d;
-		n++;
+		++n;
 	}
 
 	cout << m << " " << n << endl;

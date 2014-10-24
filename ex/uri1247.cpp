@@ -1,4 +1,5 @@
 #include <iostream>
+#define DIST (12.0)
 using namespace std;
 
 main()
@@ -8,10 +9,11 @@ main()
 
   while (cin >> D >> VF >> VG)
   {
-    TF = (VF)/12.0;
-    TG = (VG-VF+0.0)/D;
+    TF = DIST/VF;
+    TG = ((float)D)/(VG-VF);
+    cout << TF << " " << TG << '\t';
 
-    if (TG > TF) cout << "S";
+    if (TG >= TF) cout << "S";
     else cout << "N";
     cout << endl;
   }

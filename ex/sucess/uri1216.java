@@ -15,13 +15,15 @@ public class uri1216 {
 
     while (flag == true) {
       String name = in.readLine();
-      if (name.length() == 0) {
+      try {
+        partialSum += Integer.parseInt(in.readLine());
+      }
+      catch (Exception NumberFormatException) {
         flag = false;
       }
-      else {
-        partialSum += Integer.parseInt(in.readLine());
-        numberFriends++;
-      }
+
+      if (flag == true) ++numberFriends;
+      else break;
     }
   }
 

@@ -1,0 +1,67 @@
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.List;
+import java.util.ArrayList;
+
+public class uri1245 {
+  static InputStreamReader ir = new InputStreamReader(System.in);
+  static BufferedReader in = new BufferedReader(ir);
+
+  static int numberBoots;
+  static List bootSize;
+  static List bootFoot;
+
+  static boolean readData() throws IOException {
+    boolean flag = true;
+    String[] line;
+
+    try {
+      numberBoots = Integer.parseInt(in.readLine());
+      bootSize = new ArrayList<Integer>();
+      bootFoot = new ArrayList<Boolean>();
+
+      for (int b = 0; b < numberBoots; ++b) {
+        line = in.readLine().split(" ");
+        bootSize.add(Integer.parseInt(line[0]));
+        if (line[1].equals("D"))
+          bootFoot.add(true);
+        else
+          bootFoot.add(false);
+      }
+    }
+    catch (Exception NumberFormatException) {
+      flag = false;
+    }
+
+    return flag;
+  }
+
+  public static final void main(String[] args) throws IOException {
+    boolean flag;
+    int combinedFeet;
+
+    while (readData())
+    {
+      combinedFeet = 0;
+      for (int b = 0; b < bootSize.size(); ++b)
+      {
+        flag = false;
+        for (int f = b; !flag && f < bootSize.size(); ++f)
+        {
+          while (bootSize.get(b) == bootSize.get(f) &&
+          bootFoot.get(b) != bootFoot.get(f))
+          {
+            bootSize.remove(b);
+            bootSize.remove(f);
+            bootFoot.remove(b);
+            bootFoot.remove(f);
+            ++combinedFeet;
+            flag = true;
+          }
+        }
+      }
+      System.out.println(combinedFeet);
+    }
+  }
+}

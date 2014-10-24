@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 using namespace std;
 
 main()
@@ -7,7 +8,9 @@ main()
 	int length;
 	string line;
 
-	cin >> nc;
+
+	getline(cin, line);
+	stringstream(line) >> nc;
 	for (int c = 0; c < nc; c++)
 	{
 		getline(cin, line);
