@@ -13,6 +13,6 @@ main()
 		low = temp;
 	}
 	for (int n = low; n < high; ++n)
-		if (n % 5 == 2 || n % 5 == 3)
+		if (n % 5 == 2 || n % 5 == 3 || n % 5 == -2 || n % 5 == -3)
 			cout << n << endl;
 }
