@@ -1,25 +1,36 @@
 #include <iostream>
+#include <stdio.h>
+#include <math.h>
 using namespace std;
+const unsigned long LIMIT = (unsigned long) pow(10, 12);
+
+bool is_bin (unsigned long number)
+{
+  bool flag = true;
+
+  while (number > 0 && flag == true)
+    if (!(number % 10 == 0 || number % 10 == 1))
+      flag = false;
+    else
+      number /= 10;
+
+  return flag;
+}
 
 main()
 {
-  const long limit = 1000000000000;
   unsigned long inlet;
   unsigned long outlet;
 
   while (cin >> inlet)
   {
-    outlet = 10;
+    outlet = inlet;
 
-    while (inlet % outlet != 0 && outlet < limit)
-    {
-      if (outlet % 2 == 0)
-        ++outlet;
-      else
-        outlet += 9;
-    }
+    while (!is_bin(outlet) && outlet <= LIMIT)
+      outlet += inlet;
 
-    if (outlet > limit) cout << "-1" << endl;
-    else cout << outlet << endl;
+    if (outlet > LIMIT) cout << "-1";
+    else cout << outlet;
+    cout << endl;
   }
 }

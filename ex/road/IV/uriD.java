@@ -33,8 +33,9 @@ class uriD {
 
     while (readData()) {
       sum = 0;
+      if (low % 2 == 0)
+        ++low;
 
-      if (low % 2 == 0) ++low;
       for (num = low; num <= high; num += 2) {
         word = num + "";
         for (int i = 0; i < word.length(); ++i)

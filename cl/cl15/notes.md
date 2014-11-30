@@ -32,4 +32,7 @@ Leitura
 
 + Clean code
 + Mathematical recreations and essays
++ Algorithm design manual
++ Algorithms - Dasgupta, Papadimitrou, Vazirani
 + uri1556
++ Casamento aproximado de strings

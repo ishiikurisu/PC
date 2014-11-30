@@ -2,125 +2,95 @@ import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class uri1351 {
-  static InputStreamReader ir = new InputStreamReader(System.in);
-  static BufferedReader in = new BufferedReader(ir);
+public class uri1351
+{
+    static InputStreamReader isr = new InputStreamReader(System.in);
+    static BufferedReader in = new BufferedReader(isr);
+    static final double UNKNOWN = 10000000;
 
-  static int numberProducts, numberAisles;
-  static int[] products, aisles;
-  static double[] prices;
-  static double finalCost;
+    static int numberItens;
+    static int numberAisles;
+    static int[] item;
+    static int[] aisle;
+    static double[] price;
+    static double[][] memo;
+    static double bestPrice;
 
-  /* AUXILIARY FUNCTIONS */
-  static boolean possibleToAdd(int currentAisle, int productIndex) {
-    int currentProduct = products[productIndex];
-
-    while (currentAisle < numberAisles && productIndex < numberProducts) {
-      if (aisles[currentAisle] == currentProduct) {
-        productIndex++;
-        if (productIndex < numberProducts)
-          productIndex = products[productIndex];
-      }
-      currentAisle++;
+    static double min(double a, double b)
+    {
+        return (a < b)? a : b;
     }
 
-    if (productIndex == numberProducts)
-      return true;
-    else
-      return false;
-  }
+    static double evaluate(int it, int ai, double cp)
+    {
+        double result;
 
-  /* MAIN FUNCTIONS */
-  static boolean readData() throws IOException {
-    boolean flag = true;
-    String[] line;
+        if (memo[it][ai] > 0)
+          result = memo[it][ai];
+        if (it == numberItens)
+            result = cp;
+        else if (ai == numberAisles)
+            result = UNKNOWN;
+        else if (aisle[ai] == item[it])
+            result = min(evaluate(it, ai+1, cp), evaluate(it+1, ai+1, cp + price[ai]));
+        else
+            result = evaluate(it, ai+1, cp);
 
-    try {
-      line = in.readLine().split(" ");
-      numberProducts = Integer.parseInt(line[0]);
-      numberAisles = Integer.parseInt(line[1]);
+        memo[it][ai] = result;
+        return result;
+    }
 
-      if (numberProducts != 0 && numberAisles != 0) {
-        products = new int[numberProducts];
-        aisles = new int[numberAisles];
-        prices = new double[numberAisles];
+    static void readData() throws IOException
+    {
+        String[] line = in.readLine().split(" ");
+        numberItens = Integer.parseInt(line[0]);
+        numberAisles = Integer.parseInt(line[1]);
 
+        if (numberItens == 0 || numberAisles == 0)
+            throw new IOException();
+
+        item = new int[numberItens];
+        aisle = new int[numberAisles];
+        price = new double[numberAisles];
         line = in.readLine().split(" ");
-        for (int p = 0; p < numberProducts; ++p)
-          products[p] = Integer.parseInt(line[p]);
-        for (int p = 0; p < numberAisles; ++p) {
-          line = in.readLine().split(" ");
-          aisles[p] = Integer.parseInt(line[0]);
-          prices[p] = Double.parseDouble(line[1]);
+        for (int i = 0; i < numberItens; ++i)
+            item[i] = Integer.parseInt(line[i]);
+        for (int a = 0; a < numberAisles; ++a)
+        {
+            line = in.readLine().split(" ");
+            aisle[a] = Integer.parseInt(line[0]);
+            price[a] = Double.parseDouble(line[1]);
         }
-      }
-    }
-    catch (Exception NumberFormatException) {
-      numberProducts = numberAisles = 0;
     }
 
-    if (numberProducts == 0 || numberAisles == 0) flag = false;
-    return flag;
-  }
+    static void processData()
+    {
+        memo = new double[numberItens+1][numberAisles+1];
+        bestPrice = evaluate(0, 0, 0.0);
+    }
 
-  static void processData() {
-    double[] costs = new double[numberProducts];
-    int addedItens = 0;
-    int position = 0;
-    int product = 0;
-    int memory = 0;
-    int item;
-    finalCost = 0;
+    static void writeData()
+    {
+        if (bestPrice <= 0 || bestPrice == UNKNOWN)
+            System.out.println("Impossible");
+        else
+            System.out.printf("%.2f\n", bestPrice);
+    }
 
-    for (item = 0; item < numberProducts; ++item) {
-      product = products[item];
-      position = memory;
-
-      try {
-        while (aisles[position] != product && position < numberAisles)
-          position++;
-      }
-      catch (Exception ArrayIndexOutOfBoundsException) {
-        position = numberAisles;
-      }
-
-      if (position == numberAisles) break;
-      else {
-        costs[item] = prices[position];
-        memory = position + 1;
-        ++addedItens;
-        ++position;
-
-        while (position < numberAisles) {
-          if (aisles[position] == product && prices[position] < costs[item]) {
-            if (!possibleToAdd(position, item)) break;
-            else {
-              costs[item] = prices[position];
-              memory = position + 1;
+    public static final void main(String[] args)
+    {
+        while (true)
+        {
+            try
+            {
+                readData();
+                processData();
+                writeData();
             }
-          }
-          ++position;
+            catch (Exception any)
+            {
+                break;
+            }
         }
-      }
     }
-
-    if (addedItens == numberProducts)
-      for (product = 0; product < numberProducts; ++product)
-        finalCost += costs[product];
-    else finalCost = -1;
-  }
-
-  static void writeData() {
-    if (finalCost < 0)
-      System.out.println("Impossible");
-    else
-      System.out.printf("%.2f\n", finalCost);
-  }
-
-  public static final void main(String[] args) throws IOException {
-    while (readData()) {
-      processData();
-      writeData();
-    }
-  }
 }

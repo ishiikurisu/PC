@@ -1,33 +1,35 @@
 #include <iostream>
-#include <vector>
+#include <set>
 using namespace std;
 
 string inlet;
-vector<string> outlet;
+set<string> outlet;
 
-string form(string word, int pi, int ws)
+void form(string word, int pi, int ws)
 {
-  string new_word = word;
+  string new_word;
 
   if (word.length() == ws)
-    outlet.push_back(word);
+    outlet.insert(word);
   else for (int i = pi; i < inlet.length(); ++i)
   {
-    new_word.append(inlet.substr(i, 1));
+    new_word = word + inlet[i];
     form(new_word, i + 1, ws);
   }
 }
 
 main()
 {
+  set<string>::iterator it;
+
   while (getline(cin, inlet))
   {
     for (int ws = 1; ws <= inlet.length(); ++ws)
       for (int fs = 0; fs < inlet.length(); ++fs)
         form("", fs, ws);
 
-    for (int i = 0; i < outlet.size(); ++i)
-      cout << outlet.at(i) << endl;
+    for (it = outlet.begin(); it != outlet.end(); ++it)
+      cout << (*it) << endl;
 
     cout << endl;
     outlet.clear();
