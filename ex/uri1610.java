@@ -2,6 +2,8 @@ import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.BitSet;
+import java.util.List;
+import java.util.LinkedList;
 
 public class uri1610 {
   static InputStreamReader ir = new InputStreamReader(System.in);
@@ -10,6 +12,7 @@ public class uri1610 {
   public static final void main(String[] args) throws IOException {
     int numberCases = Integer.parseInt(in.readLine());
     BitSet path;
+    List queue;
     String[] line;
     int dom, sub;
     int doc, fil;
@@ -33,19 +36,25 @@ public class uri1610 {
 
       /* process data */
       outlet = false;
-      for (doc = 0; doc < docs && !outlet; ++doc) {
+      for (dom = 0; dom < docs && outlet == false; ++dom) {
+        queue = new LinkedList<Integer>();
         path = new BitSet();
-        for (fil = 0; fil < docs; ++fil)
-          if (ships[doc][fil] == true)
-            path.set(fil, true);
-        for (int i = 0; i < path.size(); ++i)
-          if (path.get(i) && i != doc) {
-            dom = i;
-            for (sub = 0; sub < docs; ++sub)
-              if (ships[dom][sub] == true && path.get(sub) == false)
-                path.set(sub, true);
+
+        queue.add(dom);
+        while (!queue.isEmpty() && outlet == false) {
+          dom = (int) queue.remove(0);
+
+          for (sub = 0; sub < docs && outlet == false; ++sub) {
+            if (ships[dom][sub] == true && path.get(sub) == false) {
+              path.set(sub, true);
+              queue.add(sub);
+            }
+            else if (ships[dom][sub] == true && path.get(sub) == true) {
+              outlet = true;
+            }
           }
-        if (path.get(doc) == true) outlet = true;
+          
+        }
       }
 
       /* write data */

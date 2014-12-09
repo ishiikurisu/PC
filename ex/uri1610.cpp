@@ -2,20 +2,44 @@
 #include <stdlib.h>
 using namespace std;
 
+bool DFS(bool** graph, int limit, bool* relax, int vertex)
+{
+	bool result = false;
+
+	if (relax[vertex] == true)
+		result = true;
+
+	relax[vertex] = true;
+	for (int neigh = 0; neigh < limit && result == false; ++neigh)
+		if (graph[vertex][neigh] == true && relax[neigh] == false)
+			result = DFS(graph, limit, relax, neigh);
+		else if (graph[vertex][neigh] == true && relax[neigh] == true)
+			result = true;
+
+	return result;
+}
+
 main()
 {
 	int nc;
-	bool* path;
-	int dom, sub;
-	int doc, fil;
 	int docs, rels;
+	int dom, sub;
 	bool outlet;
+	bool* path;
+	bool** ships;
 
 	cin >> nc;
 	for (int c = 0; c < nc; c++)
 	{
 		cin >> docs >> rels;
-		bool ships[docs][docs];
+		path = (bool*) malloc(sizeof(bool)*docs);
+		ships = (bool**) malloc(docs*sizeof(bool*));
+		for (dom = 0; dom < docs; ++dom)
+		{
+			ships[dom] = (bool*) malloc(docs*sizeof(bool));
+			for (sub = 0; sub < docs; ++sub)
+				ships[dom][sub] = false;
+		}
 
 		for (int r = 0; r < rels; ++r)
 		{
@@ -24,22 +48,12 @@ main()
 		}
 
 		outlet = false;
-		for (doc = 0; doc < docs && !outlet; ++doc)
+		/* DFS */
+		for (dom = 0; dom < docs && outlet == false; ++dom)
 		{
-			path = (bool*) malloc(sizeof(bool)*docs);
-			for (fil = 0; fil < docs; ++fil)
-				if (ships[doc][fil])
-					path[fil] = true;
-			for (int i = 0; i < docs; ++i)
-				if (path[i] && i != doc)
-				{
-					dom = i;
-					for (sub = 0; sub < docs; ++sub)
-						if (ships[dom][sub] && !path[sub])
-							path[sub] = true;
-				}
-			if (path[doc]) outlet = path[doc];
-			free(path);
+			for (sub = 0; sub < docs; ++sub)
+				path[sub] = false;
+			outlet = DFS(ships, docs, path, dom);
 		}
 
 		if (outlet) cout << "SIM";
