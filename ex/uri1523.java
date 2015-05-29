@@ -38,7 +38,6 @@ public class uri1523
         int added = 0;
         int moment = 0;
         int driver = 0;
-        int waiter = 0;
 
         while (flag && !departure.isEmpty())
         {
@@ -46,6 +45,9 @@ public class uri1523
                 driver = arrival.get(moment);
                 parkingLot.add(0, driver);
                 ++added;
+
+                if (added > parkingLotSize)
+                    flag = false;
             }
             else if (departure.containsKey(moment)) {
                 driver = departure.get(moment);
@@ -57,8 +59,6 @@ public class uri1523
                 else flag = false;
             }
 
-            if (added > parkingLotSize)
-                flag = false;
             ++moment;
         }
 
