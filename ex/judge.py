@@ -81,6 +81,8 @@ def draw():
         command += '*.exe'
     elif LANG == JAVA:
         command += '*.class'
+    elif LANG == PYTHON:
+        command = ''
     os.system(command)
 
 setup()
