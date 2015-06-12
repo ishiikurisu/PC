@@ -1,15 +1,16 @@
 def main():
     N = input()
     D = raw_input()
+    R = 'N'
 
-    if not 'X' in D:
-        return 'S'
-    tab = D.split('X')
-    for gap in tab:
-        if len(gap) >= 3:
-            return 'S'
-    else:
-        return 'N'
+    A = D.split('X')
+    B = ''
+    for it in A:
+        B += it
+    if len(B) % 2 != 0:
+        R = 'S'
+
+    return R
 
 if __name__ == '__main__':
     while True:
