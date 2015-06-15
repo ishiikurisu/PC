@@ -33,13 +33,12 @@ public class uva573
         int day = 0;
         double distance = 0.0;
 
-        while (true)
+        while (distance <= height && distance >= 0)
         {
             day++;
             distance += slideUp;
-            if (distance > height) break;
-            distance -= slideDown;
-            if (distance < 0.0) break;
+            if (distance <= height)
+                distance -= slideDown;
 
             slideUp -= fatigue;
             if (slideUp <= 0.0)
