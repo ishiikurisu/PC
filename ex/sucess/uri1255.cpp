@@ -11,7 +11,7 @@ int* init(int* array, int array_size)
   return array;
 }
 
-bool isLetter(char letter)
+bool is_letter(char letter)
 {
   if ((letter >= 'a' && letter <= 'z') || (letter >= 'A' && letter <= 'Z'))
     return true;
@@ -49,11 +49,10 @@ main()
     for (int l = 0; l <= inlet.length(); ++l)
     {
       letter = inlet[l];
-      if (isLetter(letter))
-      {
+      if (is_letter(letter)) {
         letter = transform(letter);
         ++outlet[letter];
-        if (outlet[letter] >= bs)
+        if (outlet[letter] > bs)
           bs = outlet[letter];
       }
     }
@@ -61,7 +60,6 @@ main()
     for (int i = 0; i < nl; ++i)
       if (outlet[i] == bs)
         cout << char('a' + i);
-
     cout << endl;
   }
 }

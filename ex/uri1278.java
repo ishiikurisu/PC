@@ -65,7 +65,7 @@ public class uri1278 {
       firstSentence = false;
     }
     else {
-      System.out.println("\n");
+      System.out.println();
     }
 
     for (p = 0; p < numberSentences; ++p) {
@@ -74,17 +74,11 @@ public class uri1278 {
       for (w = 0; w < biggestSize - sentencesSize[p]; ++w) {
         System.out.print(" "); }
 
-      w = 0;
-      while (true) {
-        try {
-          System.out.print(line[w].trim()); }
-        catch (Exception ArrayIndexOutOfBoundsException) {
-          System.out.println();
-          break;
-        }
-        System.out.print(" ");
-        ++w;
+      System.out.print(line[0].trim());
+      for (w = 1; w < line.length; ++w) {
+          System.out.print(" " + line[w].trim());
       }
+      System.out.println();
     }
   }
 

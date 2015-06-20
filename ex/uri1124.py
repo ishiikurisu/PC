@@ -15,11 +15,10 @@ def main(argv):
     dx2 = c - r2 * fc
     dy2 = l - r2 * fc
 
-    output = output and ((dx1 > dx2) and (dy1 > dy2))
-    output = output and (2 * max(r1, r2) > min(l, c))
-
-    if output is True: return 'S'
-    else: return 'N'
+    if ((dx1 > dx2) and (dy1 > dy2)) or (2 * max(r1, r2) > min(l, c)):
+        return 'N'
+    else:
+        return 'S'
 
 if __name__ == '__main__':
     while True:
