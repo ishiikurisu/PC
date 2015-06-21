@@ -90,8 +90,6 @@ public class uva10141
     public static void main(String[] args)
     throws IOException
     {
-        setup();
-        draw();
         while (true)
         {
             try {

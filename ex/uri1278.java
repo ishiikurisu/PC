@@ -61,23 +61,20 @@ public class uri1278 {
     String[] line;
     int p, w;
 
-    if (firstSentence == true) {
+    if (firstSentence == true)
       firstSentence = false;
-    }
-    else {
+    else
       System.out.println();
-    }
 
     for (p = 0; p < numberSentences; ++p) {
       line = (String[]) sentences.get(p);
 
-      for (w = 0; w < biggestSize - sentencesSize[p]; ++w) {
-        System.out.print(" "); }
+      for (w = 0; w < biggestSize - sentencesSize[p]; ++w)
+        System.out.print(" ");
 
       System.out.print(line[0].trim());
-      for (w = 1; w < line.length; ++w) {
+      for (w = 1; w < line.length; ++w)
           System.out.print(" " + line[w].trim());
-      }
       System.out.println();
     }
   }
