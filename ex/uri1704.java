@@ -35,7 +35,6 @@ public class uri1704
     }
 
     static void draw()
-    throws IOException
     {
         int h = H;
         int v = 0;
@@ -71,9 +70,6 @@ public class uri1704
     public static void main(String[] args)
     throws IOException
     {
-        setup();
-        draw();
-
         while (true)
         {
             try {
