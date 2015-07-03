@@ -85,5 +85,6 @@ def draw():
         command = ''
     os.system(command)
 
-setup()
-draw()
+if __name__ == '__main__':
+    setup()
+    draw()

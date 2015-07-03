@@ -22,6 +22,7 @@ void loop()
     string output;
 
     getline(cin, input);
+    /* what the fuck do I do now? */
     cout << output << endl;
 }
 
