@@ -1,0 +1,23 @@
+---
+Symbols:
+    addition: '+'
+    subtraction: '-'
+    multiplication: '*'
+    division: '/'
+    assignment: ':=', '<-'
+    summation: sum(i:=0...10){i}
+    therefore: '::'
+    not: '!'
+    or: '||'
+    and: '&&'
+    implies: '=>'
+    subset: '@'
+    superset: '¢'
+    maps to: '->'
+    modulus of x: ||x||
+    set, hash: {}
+    such that: '|'
+    cardinality: '#'
+    for all: '§'
+    exists: '£'
+...
