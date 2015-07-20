@@ -20,13 +20,12 @@ public class uri1246
     {
         while (true)
         {
-            setup();
-            draw();
             try {
                 setup();
                 draw();
             }
             catch (Exception any) {
+                // System.out.println(any);
                 break;
             }
         }
@@ -64,16 +63,16 @@ public class uri1246
             String eventKind = line[0];
             String licensePlate = line[1];
 
-            System.out.println(what);
+            // System.out.println(what);
             if (eventKind.equals(arrival)) {
                 int carSize = Integer.parseInt(line[2]);
                 currentLot = fitsInLot(carSize);
-                System.out.println("  " + currentLot);
+                // System.out.println("  " + currentLot);
                 if (currentLot >= 0) {
                     fillLot(currentLot, carSize, licensePlate);
                     lotToCar.put(licensePlate, currentLot);
+                    money += price;
                 }
-                money += price;
             }
             else {
                 currentLot = lotToCar.get(licensePlate);
@@ -82,7 +81,7 @@ public class uri1246
             }
 
             firstLot = findFirstLot();
-            writeLot();
+            // writeLot();
         }
 
         System.out.println(money);
@@ -94,7 +93,7 @@ public class uri1246
         int lot = 0;
         int current = 0;
 
-        for (int i = 0; i < parkingLotSize; ++i)
+        for (int i = 0; i < parkingLotSize && result < 0; ++i)
         {
             if (parkingLot[i] == null) {
                 if (current < 0) {
@@ -107,9 +106,8 @@ public class uri1246
                 current = -1;
             }
 
-            if (current == size - 1) {
+            if (current == size) {
                 result = lot;
-                break;
             }
         }
 
@@ -118,22 +116,32 @@ public class uri1246
 
     static void fillLot(int firstLot, int size, String plate)
     {
-        for (int i = firstLot; i < size; ++i)
-            parkingLot[i] = plate;
+        for (int i = 0; i < size; ++i)
+            parkingLot[firstLot + i] = plate;
     }
 
     static void freeLot(int firstLot, String plate)
     {
-        for (int i = firstLot; parkingLot[i].equals(plate); ++i)
+        int i = firstLot;
+        String car = parkingLot[i];
+
+        while (car != null && plate.equals(car) && i < parkingLotSize)
+        {
             parkingLot[i] = null;
+            ++i;
+            if (i < parkingLotSize) {
+                car = parkingLot[i];
+            }
+        }
     }
 
     static int findFirstLot()
     {
-        int result;
+        int result = -1;
 
-        for (result = 0; parkingLot[result] != null; ++result)
-            ;
+        for (int place = 0; place < parkingLotSize && result < 0; ++place)
+            if (parkingLot[place] == null)
+                result = place;
 
         return result;
     }
