@@ -40,7 +40,14 @@ def draw():
     else:
         return 'NAO'
 
-if __name__ == '__main__':
+def main():
     for T in xrange(input()):
         setup()
         print draw()
+
+if __name__ == '__main__':
+    while True:
+        try:
+            main()
+        except:
+            break
