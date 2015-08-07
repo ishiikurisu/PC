@@ -1,3 +1,5 @@
+from decimal import *
+
 def setup():
     global costs
     global avg
@@ -7,18 +9,18 @@ def setup():
         raise EOFError
     else:
         costs = list()
-        avg = int()
+        avg = float()
     for i in xrange(n):
-        cost = int(float(raw_input()) * 100)
+        cost = float(raw_input())
         avg += cost
         costs.append(cost)
-    avg /= n
+    avg = float(int(avg / n * 100) / 100.0)
     costs.sort()
 
 def draw():
     global costs
     global avg
-    diff = int()
+    diff = float()
 
     for cost in costs:
         if cost >= avg:
@@ -26,7 +28,7 @@ def draw():
         else:
             diff += avg - cost
 
-    print '$%.2lf' % (diff / 100.0)
+    print '$%.2lf' % (diff)
 
 if __name__ == '__main__':
     while True:
