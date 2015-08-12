@@ -1,5 +1,3 @@
-from decimal import *
-
 def setup():
     global costs
     global avg
