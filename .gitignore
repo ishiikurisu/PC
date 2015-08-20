@@ -2,6 +2,6 @@
 *.jar
 *.o
 *.sh
-*.rb
 *.bat
 *.exe
+*.bin

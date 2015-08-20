@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 using namespace std;
- 
+
 int M, L, N, *C;
 
 void setup()
@@ -13,7 +13,8 @@ void setup()
 
 void loop()
 {
-
+    /* generate all combinations */
+    /* test them using the notes' equations */
 }
 
 int main()
@@ -25,6 +26,6 @@ int main()
         loop();
         cin >> M >> L;
     }
- 
+
     return 0;
 }
