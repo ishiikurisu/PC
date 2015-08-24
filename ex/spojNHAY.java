@@ -1,15 +1,15 @@
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class spojNHAY
 {
     static InputStreamReader ISR = new InputStreamReader(System.in);
     static BufferedReader BR = new BufferedReader(ISR);
 
-    static String pattern;
-    static String text;
+    static LinkedList<Character> pattern;
+    static LinkedList<Character> text;
     static int patternSize;
     static int patternHash;
 
@@ -25,22 +25,32 @@ public class spojNHAY
                 draw();
             }
             catch (Exception any) {
+                System.out.println(any);
                 break;
             }
         }
+
+        BR.close();
+        ISR.close();
     }
 
     static void setup()
     throws IOException
     {
         patternSize = Integer.parseInt(BR.readLine());
-        pattern = BR.readLine();
+
+        pattern = new LinkedList<Character>();
+        for (int i = 0; i < patternSize; ++i)
+            pattern.add(getchar());
+        getchar();
+
+        System.out.println(pattern.toString());
     }
 
     static void draw()
     throws IOException
     {
-        ArrayList<Integer> results = search();
+        LinkedList<Integer> results = search();
 
         if (results.size() == 0)
             System.out.println();
@@ -48,30 +58,34 @@ public class spojNHAY
             System.out.println(results.get(i));
     }
 
-    static ArrayList<Integer> search()
+    static LinkedList<Integer> search()
     throws IOException
     {
-        ArrayList<Integer> outlet = new ArrayList<Integer>();
-        char readChar = (char) BR.read();
+        LinkedList<Integer> outlet = new LinkedList<Integer>();
+        char readChar = getchar();
         int position = 0;
 
         patternHash = pattern.hashCode();
-        text = "";
+        text = new LinkedList<Character>();
 
-        while (readChar != '\n' && text.length() < patternSize)
+        while (readChar != '\n' && position < patternSize)
         {
-            text += readChar;
-            readChar = (char) BR.read();
+            text.add(readChar);
+            readChar = getchar();
             position++;
         }
+
+        System.out.println(text.toString());
 
         while (readChar != '\n')
         {
             if (rabinKarp())
                 outlet.add(position - patternSize);
-            text = text.substring(1) + readChar;
+            text.pop();
+            text.add(readChar);
+            System.out.println(text.toString());
 
-            readChar = (char) BR.read();
+            readChar = getchar();
             position++;
         }
 
@@ -90,4 +104,8 @@ public class spojNHAY
 
         return result;
     }
+
+    static char getchar()
+    throws IOException
+    { return (char) BR.read(); }
 }
