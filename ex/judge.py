@@ -71,7 +71,7 @@ def draw():
         command += 'python %s' % (CODE)
     now = time.time()
     os.system(command)
-    print '  %.3fms' % (time.time() - now)
+    print '  %.3fs' % (time.time() - now)
 
     # DELETE FILES
     if OS_NAME == UNIX:
