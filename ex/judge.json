@@ -1,0 +1,35 @@
+{
+    "languages": {
+        "cpp": "c++",
+        "c": "c",
+        "java": "java",
+        "py": "python",
+        "clj": "clojure"
+    },
+    "c": {
+        "type": "binary",
+        "compile": "gcc %s -o %s -lm -O2",
+        "run": null,
+        "delete": "*.exe"
+    },
+    "c++": {
+        "type": "binary",
+        "compile": "g++ %s -o %s -lm -O2",
+        "run": null,
+        "delete": "*.exe"
+    },
+    "java": {
+        "type": "compiled",
+        "compile": "javac %s",
+        "run": "java %s",
+        "delete": "*.class"
+    },
+    "clojure": {
+        "type": "interpreted",
+        "run": "clj %s"
+    },
+    "python": {
+        "type": "interpreted",
+        "run": "python %s"
+    }
+}
