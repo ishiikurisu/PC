@@ -22,16 +22,12 @@ int main(int argc, char const *argv[]) {
         alive.insert(killer);
     }
 
-    /* remove dead people */
-    set<string>::iterator it;
-    for (it = dead.begin(); it != dead.end(); ++it)
-        if (alive.count(*it) != 0)
-            alive.erase(*it);
-
     /* sort killers */
     vector<string> survivors;
+    set<string>::iterator it;
     for (it = alive.begin(); it != alive.end(); ++it)
-        survivors.push_back(*it);
+        if (dead.count(*it) == 0)
+            survivors.push_back(*it);
     sort(survivors.begin(), survivors.end());
 
     /* show killrate */
