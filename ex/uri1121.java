@@ -1,53 +1,145 @@
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
 
-public class Main {
-  static InputStreamReader ir = new InputStreamReader(System.in);
-  static BufferedReader in = new BufferedReader(ir);
+public class uri1121 {
+	static InputStreamReader ir = new InputStreamReader(System.in);
+	static BufferedReader in = new BufferedReader(ir);
 
-  static int[] dimensions;
-  static int numberSticks;
-  static String[] arena;
-  static String instructions;
+	static int numberLines;
+	static int numberColumns;
+	static int direction;
+	static char[][] arena;
+	static String instructions;
+	static int[] position;
 
-  static boolean readData() throws IOException {
-    boolean flag = true;
-    int count = 3;
-    dimensions = new int[3];
+	static void readData()
+	throws IOException
+	{
+		String raw = in.readLine();
+		String[] line = raw.split("\\s+");
 
-    try {
-      String[] info = in.readLine().split(" ");
-      for (int i = 0; i < 3; ++i) {
-        dimensions[i] = Integer.parseInt(info[i]);
-        if (dimensions[i] == 0) count--;
-      }
+		numberLines = Integer.parseInt(line[0]);
+		numberColumns = Integer.parseInt(line[1]);
+		arena = new char[numberLines][numberColumns];
+		position = new int[2];
 
-      arena = new String[dimenstions[1]];
-      for (int i = 0; i < dimensions[1]; ++i)
-        arena[i] = in.readLine();
-      instructions = in.readLine();
+		if (numberLines == 0 && numberColumns == 0)
+			throw new IOException();
 
-    }
-    catch (Exception NumberFormatException) {
-      count = 0;
-    }
+		for (int j = 0; j < numberLines; ++j)
+		{
+			raw = in.readLine();
+			for (int i = 0; i < numberLines; ++i)
+			{
+				char data = raw.charAt(i);
 
-    if (count == 0) flag = false;
-    return flag;
-  }
+				switch (data)
+				{
+					case 'N': direction = 0; break;
+					case 'L': direction = 1; break;
+					case 'S': direction = 2; break;
+					case 'O': direction = 3; break;
+				}
 
-  static void processData() {
+				if (data == 'N' || data == 'S' || data == 'L' || data == 'O') {
+					position[0] = j;
+					position[1] = i;
+				}
 
-  }
+				arena[j][i] = data;
+			}
+		}
 
-  public static void main(String[] args) throws IOException {
-    boolean flag = true;
+		instructions = in.readLine();
+	}
 
-    flag = readData();
-    while (flag) {
-      processData();
-      flag = readData();
-  }
-    }
+	static void processData() {
+		int cards = 0;
+
+		for (int i = 0; i < instructions.length(); ++i)
+		{
+			switch (instructions.charAt(i))
+			{
+				case 'D':
+					direction = (direction+1) % 4;
+				break;
+
+				case 'E':
+					direction = (direction-1) % 4;
+				break;
+
+				case 'F':
+					cards += judge();
+				break;
+			}
+
+			if (direction < 0) direction += 4;
+		}
+
+		System.out.println(cards);
+	}
+
+	static int judge()
+	{
+		int py = position[0];
+		int px = position[1];
+		int sy = -1;
+		int sx = 0;
+		int c = 0;
+
+		switch (direction)
+		{
+			case 1: sy = 0; sx = 1; break;
+			case 2: sy = 1; sx = 0; break;
+			case 3: sy = 0; sx = -1; break;
+		}
+
+		// unable to leave the arena
+		if ((px+sx >= numberColumns) || (py+sy) >= numberLines ||
+		(px+sx < 0) || (py+sy < 0)) {
+			c = 0;
+		}
+		// unable to break a wall
+		else if (arena[py+sy][px+sx] == '#') {
+			c = 0;
+		}
+		// get the card
+		else if (arena[py+sy][px+sx] == '*') {
+			arena[py][px] = '.';
+			py += sy;
+			px += sx;
+			c = 1;
+			arena[py][px] = '#';
+		}
+		else {
+			arena[py][px] = '.';
+			py += sy;
+			px += sx;
+			arena[py][px] = '#';
+		}
+
+		position[0] = py;
+		position[1] = px;
+		return c;
+	}
+
+	public static void main(String[] args) throws IOException {
+		readData();
+
+		while (true)
+		{
+			try {
+				processData();
+				readData();
+			}
+			catch (Exception any) {
+				break;
+			}
+		}
+
+		in.close();
+		ir.close();
+	}
 
 }
