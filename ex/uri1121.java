@@ -69,9 +69,8 @@ public class uri1121 {
 					direction = (direction-1) % 4;
 				break;
 
-				case 'F':
+				default:
 					cards += judge();
-				break;
 			}
 
 			if (direction < 0) direction += 4;
@@ -110,13 +109,13 @@ public class uri1121 {
 			py += sy;
 			px += sx;
 			c = 1;
-			arena[py][px] = '#';
+			arena[py][px] = 'R';
 		}
 		else {
 			arena[py][px] = '.';
 			py += sy;
 			px += sx;
-			arena[py][px] = '#';
+			arena[py][px] = 'R';
 		}
 
 		position[0] = py;
