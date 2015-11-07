@@ -1,36 +1,35 @@
-def rec(line, stack, street):
-    global stdline
+def deal(truck, line):
+	result = True
 
-    print line
-    if len(street) == len(stdline):
-        if street == stdline:
-            return True
-        else:
-            return False
+	if len(line) > 0:
+		if truck == line[-1]:
+			line.pop()
+			truck += 1
+	else:
+		result = False
 
-    truck = line.pop(0)
-    result = rec(line, stack.insert(0, truck), street)
-    result = result or rec(line, stack, street.append(truck))
+	return result
 
-    return result
+def main(line):
+	line = list()
+	side = list()
+	parade = list()
+	result = 'no'
+	wanted = 1
 
-def main():
-    global stdline
+	while len(line) > 0 and len(side) > 0:
+		if not (deal(wanted, line) and deal(wanted, side)):
+			if len(line) > 0:
+				side.append(line.pop())
+			else:
+				break
+	else:
+		result = 'yes'
 
-    n = input()
-    if n == 0: raise StandardError
-
-    stdline = [i+1 for i in xrange(n)]
-    line = map(int, raw_input().split(' '))
-    if rec(line, [], []):
-        return 'yes'
-    else:
-        return 'no'
+	print result
 
 if __name__ == '__main__':
-    print main()
-    while True:
-        try:
-            print main()
-        except:
-            break
+	n = input()
+	while n > 0:
+		main(map(int, raw_input().split(' ')).reverse())
+		n = input()
