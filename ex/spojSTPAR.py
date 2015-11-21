@@ -1,35 +1,46 @@
-def deal(truck, line):
-	result = True
-
+def deal(truck, line, p = 0):
 	if len(line) > 0:
-		if truck == line[-1]:
-			line.pop()
-			truck += 1
-	else:
-		result = False
+		if truck == line[p]:
+			return True
+	return False
 
-	return result
+def exchange(line, side):
+	flag = True
+
+	if (len(side) == 0) and (len(line) > 0): # can add to empty side from line
+		side.append(line.pop(0))
+	elif (len(line) > 0) and (len(side) > 0): # can add to side from line
+		if line[0] < side[-1]:
+			side.append(line.pop(0))
+		flag = False
+	else:
+		flag = False
+
+	return flag
 
 def main(line):
-	line = list()
 	side = list()
-	parade = list()
 	result = 'no'
-	wanted = 1
+	truck = 1
+	wanted = len(line)+1
 
-	while len(line) > 0 and len(side) > 0:
-		if not (deal(wanted, line) and deal(wanted, side)):
-			if len(line) > 0:
-				side.append(line.pop())
-			else:
-				break
+	while truck is not wanted:
+		print 'line:', line, 'side:', side
+		if deal(truck, line):
+			line.pop(0)
+			truck += 1
+		elif deal(truck, side, -1):
+			side.pop()
+			truck += 1
+		elif not exchange(line, side):
+			break
 	else:
 		result = 'yes'
 
 	print result
 
 if __name__ == '__main__':
-	n = input()
+	n = int(raw_input())
 	while n > 0:
-		main(map(int, raw_input().split(' ')).reverse())
-		n = input()
+		main(map(int, raw_input().split(' ')))
+		n = int(raw_input())
