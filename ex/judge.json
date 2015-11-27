@@ -4,6 +4,7 @@
         "c": "c",
         "java": "java",
         "py": "python",
+        "rb": "ruby",
         "clj": "clojure"
     },
     "c": {
@@ -31,5 +32,9 @@
     "python": {
         "type": "interpreted",
         "run": "python %s"
+    },
+    "ruby": {
+            "type": "interpreted",
+            "run": "ruby %s"
     }
 }
