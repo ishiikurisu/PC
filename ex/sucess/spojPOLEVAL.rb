@@ -2,31 +2,37 @@ $n = 0
 $c = []
 $t = 0
 
-def evaluate x
-    s = 0
-    i = $n
-    while i >= 0
-        s += $c[i] * (x**i)
-        i -= 1
+def b n, x
+    if n == $n
+        $c[0]
+    else
+        $c[$n-n] + x*b(n+1, x)
     end
-    return s
 end
 
-def main
+def evaluate x
+    b(0, x)
+end
+
+loop do
     $n = gets.to_i
     $c = []
 
-    return false if $n < 0 else $t += 1
-    puts "Case #{$t}:"
+    if $n < 0
+        break
+    else
+        $t += 1
+    end
+
+    # setup
     for c in gets.chomp.split " "
         $c << c.to_i
     end
     k = gets.to_i
+
+    #draw
+    puts "Case #{$t}:"
     for x in gets.chomp.split(" ")
         puts "#{evaluate x.to_i}"
     end
-    return true
-end
-
-while main
 end
