@@ -1,134 +1,44 @@
-#include <cstdlib>
 #include <iostream>
-#include <string>
+#include <stdlib.h>
+#include <map>
 using namespace std;
 
-/* DATA STRUCTURE DEFINITION */
-struct node
+int walk(string phone, map<char, map> tree, int index)
 {
-	char number;
-	node* left;
-	node* right;
-};
-typedef node* btree;
+	if (index == phone.length())
+		return 0;
 
-btree create_tree()
-{
-	return (btree) malloc(sizeof(node));
-}
+	char digit = phone.at(index);
+	int result = 0;
 
-btree new_tree(char number)
-{
-	btree root = create_tree();
-
-	root->number = number;
-	root->left = NULL;
-	root->right = NULL;
-
-	return root;
-}
-
-btree add_to_left(btree root, char letter)
-{
-	if (root->left == NULL)
-		root->left = new_tree(letter);
-
-	return root->left;
-}
-btree add_to_right(btree root, char letter)
-{
-	if (root->right == NULL)
-		root->right = new_tree(letter);
-
-		return root->right;
-}
-
-/* DATA STRUCTURE MANIPULATION */
-btree populate_tree(string phone)
-{
-	btree root = new_tree(phone.at(0));
-	btree tree = root;
-	int limit = phone.length();
-	int index = 1;
-
-
-	while (index < limit)
-	{
-		tree = add_to_right(tree, phone.at(index));
-		index++;
+	if (tree.count(digit) > 0) {
+		result = walk(phone, tree.[digit], index+1) + 1;
+	}
+	else {
+		tree[digit] = map<char, map>();
+		result = walk(phone, tree.[digit], index+1);
 	}
 
-	return root;
+	return result;
 }
 
-btree add_to_tree(btree book, string phone)
-{
-	int limit = phone.length();
-	int index = 0;
-	char c = phone.at(index);
-	btree page = book;
-
-	while (index < limit)
-	{
-		c = phone.at(index);
-		if (page->right == NULL)
-		{
-			page = add_to_right(page, c);
-		}
-		else
-		{
-			if (page->right->number == c)
-				page = add_to_right(page, c);
-			else while (page->number != c)
-				page = add_to_left(page, c);
-		}
-		index++;
-
-	}
-
-	return book;
-}
-
-int walk_and_count(btree root, int size)
-{
-	cout << root->number << " < ";
-	int left = 0, right = 0;
-
-	if (root->left != NULL)
-		left = walk_and_count(root->left, size);
-	if (root->right != NULL)
-		right = walk_and_count(root->right, size);
-
-	cout << " > ";
-	return left + right;
-}
-int size_of_tree(btree root)
-{
-	return walk_and_count(root, 0);
-}
-
-/* MAIN FUNCTIONS */
-main()
-{
-	int nc, c, expensive, affordable;
-	btree phone_book;
+int main(int argc, char const *argv[]) {
+	int n, economy;
 	string phone;
+	map<char, map> phones;
 
-	while (cin >> nc)
+	while (cin >> n)
 	{
-		phone_book = NULL;
-		expensive = 0;
-		for (c = 0; c < nc; c++)
-		{
-			cin >> phone;
-			expensive += phone.length();
-			if (phone_book == NULL)
-				phone_book = populate_tree(phone);
-			else
-				phone_book = add_to_tree(phone_book, phone);
-		}
-		affordable = size_of_tree(phone_book);
+		economy = 0;
 
-		cout << (expensive - affordable) << endl;
+		for (size_t i = 0; i < n; i++) {
+			cin >> phone;
+			economy += walk(phone, phones, 0);
+		}
+
+		cout << economy << endl;
+		phones.clear();
 	}
+
+	return 0;
 }
