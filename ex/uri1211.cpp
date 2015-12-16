@@ -3,20 +3,23 @@
 #include <map>
 using namespace std;
 
-int walk(string phone, map<char, map> tree, int index)
+int walk(string phone, map<char, void*> *tree, int index)
 {
 	if (index == phone.length())
 		return 0;
 
 	char digit = phone.at(index);
 	int result = 0;
+	void *ptr;
 
-	if (tree.count(digit) > 0) {
-		result = walk(phone, tree.[digit], index+1) + 1;
+	if (tree->count(digit) > 0) {
+		ptr = (*tree)[digit];
+		result = walk(phone, (map<char, void*>*) ptr, index+1) + 1;
 	}
 	else {
-		tree[digit] = map<char, map>();
-		result = walk(phone, tree.[digit], index+1);
+		(*tree)[digit] = new map<char, void*>();
+		ptr = (*tree)[digit];
+		result = walk(phone, (map<char, void*>*) ptr, index+1);
 	}
 
 	return result;
@@ -25,19 +28,20 @@ int walk(string phone, map<char, map> tree, int index)
 int main(int argc, char const *argv[]) {
 	int n, economy;
 	string phone;
-	map<char, map> phones;
+	void *phones;
 
 	while (cin >> n)
 	{
 		economy = 0;
+		phones = new map<char, void*>();
 
 		for (size_t i = 0; i < n; i++) {
 			cin >> phone;
-			economy += walk(phone, phones, 0);
+			economy += walk(phone, (map<char, void*>*) phones, 0);
 		}
 
 		cout << economy << endl;
-		phones.clear();
+		free(phones);
 	}
 
 	return 0;
