@@ -10,22 +10,66 @@ public class uri1062
     static int[] stack;
     static int stackSize;
     static int queueSize;
-    static boolean result;
+    static int wagon;
     static int numberWagons;
 
-    static private void dequeue()
+    static private boolean dequeue()
     {
-        
+        boolean flag = true;
+
+        if (queueSize < numberWagons) {
+            if (queue[queueSize] == wagon) {
+                queueSize++;
+                wagon--;
+            }
+            else if (queue[queueSize] > wagon) {
+                flag = false;
+            }
+        }
+        else {
+            flag = false;
+        }
+
+        return flag;
     }
 
-    static private void pop()
+    static private boolean pop()
     {
+        boolean flag = true;
 
+        if (stackSize < 0) {
+            flag = push();
+        }
+        else {
+            if (stack[stackSize] == wagon) {
+                stackSize--;
+                wagon--;
+            }
+            else if (queue[queueSize] > stack[stackSize]) {
+                flag = push();
+            }
+            else {
+                flag = false;
+            }
+        }
+
+        return flag;
     }
 
-    static private void push()
+    static private boolean push()
     {
+        boolean flag = true;
 
+        try {
+            stackSize++;
+            stack[stackSize] = queue[queueSize];
+            queueSize++;
+        }
+        catch (Exception any) {
+            flag = false;
+        }
+
+        return flag;
     }
 
     static void setup()
@@ -34,21 +78,22 @@ public class uri1062
         String[] line = BR.readLine().split("\\s+");
         queue = new int[numberWagons];
         stack = new int[numberWagons];
-        stackSize = queueSize = 0;
-        result = true;
+        queueSize = 0;
+        stackSize = -1;
+        wagon = numberWagons;
 
-        for (int i = 0; i < numberWagons; ++i)
+        for (int i = numberWagons-1; i > 0; --i)
             queue[i] = Integer.parseInt(line[i]);
     }
 
     static void draw()
     throws IOException
     {
+        boolean result = true;
+
         while (wagon < numberWagons && result)
         {
-            dequeue();
-            pop();
-            push()
+            result &= (dequeue() || pop());
         }
 
         if (result)
@@ -64,12 +109,16 @@ public class uri1062
 
         while (numberWagons != 0)
         {
-            try {
-                setup();
-                draw();
-            }
-            catch (Exception any) {
-                System.out.println();
+            while (true)
+            {
+                try {
+                    setup();
+                    draw();
+                }
+                catch (Exception any) {
+                    System.out.println(/*any*/);
+                    break;
+                }
             }
 
             numberWagons = Integer.parseInt(BR.readLine());

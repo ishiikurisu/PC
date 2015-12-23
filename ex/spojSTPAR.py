@@ -12,7 +12,8 @@ def exchange(line, side):
 	elif (len(line) > 0) and (len(side) > 0): # can add to side from line
 		if line[0] < side[-1]:
 			side.append(line.pop(0))
-		flag = False
+		else:
+			flag = False
 	else:
 		flag = False
 
@@ -25,7 +26,7 @@ def main(line):
 	wanted = len(line)+1
 
 	while truck is not wanted:
-		print 'line:', line, 'side:', side
+		# print 'line:', line, 'side:', side
 		if deal(truck, line):
 			line.pop(0)
 			truck += 1
