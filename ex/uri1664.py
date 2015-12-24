@@ -9,7 +9,7 @@ for i in xrange(0, 256):
     print '%d: %s' % (i, chr(i))
 """
 
-def is_word(word):
+def is_alpha(word):
     if re.match('[a-zA-Z]', word):
         return True
     else:
@@ -26,10 +26,9 @@ def setup():
     global shit
     global blah
 
-    not_letters = re.compile('[^a-zA-Z]')
+    not_letters = re.compile('[^a-zA-Z\x2D]')
     for word in not_letters.split(raw_input()):
-        if word:
-            print word
+        if word and is_alpha(word):
             if word == 'BULLSHIT':
                 talk += blah
                 shit += 1
@@ -41,9 +40,11 @@ def draw():
     global talk
     global shit
 
-    talk += blah
-    shit += 1
-    g = gcd(talk, shit)
+    g = 0
+    if talk > shit:
+        g = gcd(talk, shit)
+    else:
+        g = gcd(shit, talk)
     if g == 0:
         print '1 / 1'
     else:

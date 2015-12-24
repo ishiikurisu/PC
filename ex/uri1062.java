@@ -19,10 +19,9 @@ public class uri1062
 
         if (queueSize < numberWagons) {
             if (queue[queueSize] == wagon) {
-                queueSize++;
-                wagon--;
+                queueSize++; wagon--;
             }
-            else if (queue[queueSize] > wagon) {
+            else {
                 flag = false;
             }
         }
@@ -42,11 +41,10 @@ public class uri1062
         }
         else {
             if (stack[stackSize] == wagon) {
-                stackSize--;
-                wagon--;
+                stackSize--; wagon--;
             }
-            else if (queue[queueSize] > stack[stackSize]) {
-                flag = push();
+            else if (queueSize < numberWagons) {
+                flag = (queue[queueSize] > stack[stackSize])? push() : false;
             }
             else {
                 flag = false;
@@ -82,8 +80,8 @@ public class uri1062
         stackSize = -1;
         wagon = numberWagons;
 
-        for (int i = numberWagons-1; i > 0; --i)
-            queue[i] = Integer.parseInt(line[i]);
+        for (int i = 0; i < numberWagons; --i)
+            queue[numberWagons-1-i] = Integer.parseInt(line[i]);
     }
 
     static void draw()
@@ -91,10 +89,8 @@ public class uri1062
     {
         boolean result = true;
 
-        while (wagon < numberWagons && result)
-        {
+        while (wagon > 0 && result)
             result &= (dequeue() || pop());
-        }
 
         if (result)
             System.out.println("Yes");

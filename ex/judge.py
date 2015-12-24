@@ -65,7 +65,7 @@ def setup():
     global OS_NAME
 
     # DISCOVER OS
-    if os.name   == 'posix':
+    if os.name == 'posix':
         OS_NAME = UNIX
     else:
         OS_NAME = WINDOWS
