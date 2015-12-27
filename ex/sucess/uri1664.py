@@ -2,18 +2,8 @@ import re
 
 talk = 0
 shit = 0
-blah = 0
-
-ALL_LETTERS = """
-for i in xrange(0, 256):
-    print '%d: %s' % (i, chr(i))
-"""
-
-def is_alpha(word):
-    if re.match('[a-zA-Z]', word):
-        return True
-    else:
-        return False
+bingo = set()
+not_letters = re.compile('[^a-zA-Z]')
 
 def gcd(a, b):
     if b == 0:
@@ -24,17 +14,18 @@ def gcd(a, b):
 def setup():
     global talk
     global shit
-    global blah
+    global bingo
+    global not_letters
 
-    not_letters = re.compile('[^a-zA-Z\x2D]')
     for word in not_letters.split(raw_input()):
-        if word and is_alpha(word):
+        if word:
+            word = word.upper()
             if word == 'BULLSHIT':
-                talk += blah
+                talk += len(bingo)
                 shit += 1
-                blah = 0
-            else:
-                blah += 1
+                bingo = set()
+            elif word not in bingo:
+                bingo.add(word)
 
 def draw():
     global talk

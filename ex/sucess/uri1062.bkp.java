@@ -13,63 +13,6 @@ public class uri1062
     static int wagon;
     static int numberWagons;
 
-    static private boolean dequeue()
-    {
-        boolean flag = true;
-
-        if (queueSize < numberWagons) {
-            if (queue[queueSize] == wagon) {
-                queueSize++; wagon--;
-            }
-            else {
-                flag = false;
-            }
-        }
-        else {
-            flag = false;
-        }
-
-        return flag;
-    }
-
-    static private boolean pop()
-    {
-        boolean flag = true;
-
-        if (stackSize < 0) {
-            flag = push();
-        }
-        else {
-            if (stack[stackSize] == wagon) {
-                stackSize--; wagon--;
-            }
-            else if (queueSize < numberWagons) {
-                flag = (queue[queueSize] > stack[stackSize])? push() : false;
-            }
-            else {
-                flag = false;
-            }
-        }
-
-        return flag;
-    }
-
-    static private boolean push()
-    {
-        boolean flag = true;
-
-        try {
-            stackSize++;
-            stack[stackSize] = queue[queueSize];
-            queueSize++;
-        }
-        catch (Exception any) {
-            flag = false;
-        }
-
-        return flag;
-    }
-
     static void setup()
     throws IOException
     {
@@ -80,7 +23,7 @@ public class uri1062
         stackSize = -1;
         wagon = numberWagons;
 
-        for (int i = 0; i < numberWagons; --i)
+        for (int i = 0; i < numberWagons; ++i)
             queue[numberWagons-1-i] = Integer.parseInt(line[i]);
     }
 
@@ -89,8 +32,25 @@ public class uri1062
     {
         boolean result = true;
 
-        while (wagon > 0 && result)
-            result &= (dequeue() || pop());
+        for ( ; result && wagon > 0; )
+        {
+            while (stackSize >= 0 && stack[stackSize] == wagon) {
+                stackSize--;
+                wagon--;
+            }
+            if (queueSize < numberWagons && queue[queueSize] == wagon) {
+                queueSize++;
+                wagon--;
+            }
+            else if (stackSize >= 0 && stack[stackSize] < queue[queueSize]) {
+                result = false;
+            }
+            else {
+                stackSize++;
+                stack[stackSize] = queue[queueSize];
+                queueSize++;
+            }
+        }
 
         if (result)
             System.out.println("Yes");
@@ -112,7 +72,7 @@ public class uri1062
                     draw();
                 }
                 catch (Exception any) {
-                    System.out.println(/*any*/);
+                    System.out.println(any);
                     break;
                 }
             }
