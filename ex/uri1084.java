@@ -3,34 +3,40 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 public class uri1084 {
-  static InputStreamReader ir = new InputStreamReader(System.in);
-  static BufferedReader in = new BufferedReader(ir);
+    static InputStreamReader ir = new InputStreamReader(System.in);
+    static BufferedReader in = new BufferedReader(ir);
 
-  static 
-  static String
+    static int numberDigits;
+    static int toErase;
+    static String numbers;
 
-  static void readData() throws IOException {
-
-  }
-
-  static void processData() {
-
-  }
-
-  static void writeData() {
-      System.out.println();
-  }
-
-  public static void main(String[] args) throws IOException {
-      while (true) {
+    public static void main(String[] args)
+    throws IOException
+    {
+        while (true)
+        {
           try {
-              readData();
-              processData();
-              writeData();
+              setup();
+              draw();
           }
           catch (Exception any) {
               break;
           }
-      }
-  }
+        }
+
+        in.close();
+        ir.close();
+    }
+
+    static void setup()
+    throws IOException
+    {
+
+    }
+
+    static void draw()
+    throws IOException
+    {
+        
+    }
 }

@@ -1,7 +1,4 @@
-#include <cstdlib>
-#include <cmath>
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 #define LIMIT 1000000000
 using namespace std;
 
