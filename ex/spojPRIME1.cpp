@@ -8,16 +8,14 @@ void setup(unsigned long long n)
 {
     int i = 0;
 
-    primes = (bool*) malloc(sizeof(bool) * (n + 1));
+    primes = new bool[n+1];
     for (i = 0; i <= n; primes[i] = true, ++i);
     primes[0] = primes[1] = false;
 
     for (i = 2; i < sqrt(n) + 1; ++i)
-    {
         if (primes[i] == true)
             for (int j = 2; j < n / i + 1; ++j)
                 primes[i*j] = false;
-    }
 }
 
 void loop(unsigned long long m, unsigned long long n)
