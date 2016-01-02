@@ -9,7 +9,6 @@ public class uri1084 {
     static int numberDigits;
     static int toErase;
     static int[] numbers;
-    static int limit;
 
     public static void main(String[] args)
     throws IOException
@@ -21,7 +20,6 @@ public class uri1084 {
                 draw();
             }
             catch (Exception any) {
-                System.out.println(any);
                 break;
             }
         }
@@ -48,12 +46,7 @@ public class uri1084 {
     static void draw()
     throws IOException
     {
-        limit = numberDigits - toErase;
-        process();
-    }
-
-    private static void process()
-    {
+        int limit = numberDigits - toErase;
         int[] result = new int[limit];
         int top = limit-1;
         int temp = top;
