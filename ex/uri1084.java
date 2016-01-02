@@ -9,6 +9,7 @@ public class uri1084 {
     static int numberDigits;
     static int toErase;
     static int[] numbers;
+    static int limit;
 
     public static void main(String[] args)
     throws IOException
@@ -16,11 +17,12 @@ public class uri1084 {
         while (true)
         {
             try {
-              setup();
-              draw();
+                setup();
+                draw();
             }
             catch (Exception any) {
-              break;
+                System.out.println(any);
+                break;
             }
         }
 
@@ -35,58 +37,55 @@ public class uri1084 {
         numberDigits = Integer.parseInt(line[0]);
         toErase = Integer.parseInt(line[1]);
 
-        if (numberDigits == 0)
-            throw new IOException();
-        else {
-            String number = in.readLine();
-            numbers = new int[numberDigits];
+        if (numberDigits == 0) throw new IOException();
+        String number = in.readLine();
+        numbers = new int[numberDigits];
 
-            for (int c = 0; c < numberDigits; c++)
-                numbers[c] = Integer.parseInt(number.charAt(c) + "");
-        }
+        for (int c = 0; c < numberDigits; c++)
+            numbers[c] = Integer.parseInt(number.charAt(c) + "");
     }
 
     static void draw()
     throws IOException
     {
-        int[] queue = newQueue();
-        int queueSize = -1;
-        int lastAdded = -1;
-
-        for (int c = 0; c < numberDigits; c++)
-        {
-            int digit = numbers[c];
-
-            if (queueSize < 0) {
-                queue[0] = digit;
-                queueSize++;
-                lastAdded = c;
-                continue;
-            }
-
-            while (queue[queueSize] < digit && queueSize > lastAdded)
-            {
-                queue[queueSize] = -1;
-                queueSize--;
-            }
-
-            queue[queueSize] = digit;
-            lastAdded = queueSize;
-        }
-
-        for (int i = 0; i < queue.length; ++i)
-            System.out.print(queue[i]);
-        System.out.println();
+        limit = numberDigits - toErase;
+        process();
     }
 
-    private static int[] newQueue()
+    private static void process()
     {
-        int limit = numberDigits - toErase;
-        int[] pile = new int[limit];
+        int[] result = new int[limit];
+        int top = limit-1;
+        int temp = top;
+        int current = -1;
+        int c = 0;
 
-        for (int n = 0; n < limit; ++n)
-            pile[n] = -1;
+        /* setup result */
+        for (c = 0; c < limit; c++)
+            result[limit-1-c] = numbers[numberDigits-1-c];
 
-        return pile;
+        /* draw result */
+        for (c = numberDigits-limit-1; c >= 0; c--)
+        {
+            current = numbers[c];
+            top = 0;
+
+            while (top < limit)
+            {
+                if (current >= result[top]) {
+                    temp = result[top];
+                    result[top] = current;
+                    current = temp;
+                    top++;
+                }
+                else {
+                    top = limit;
+                }
+            }
+        }
+
+        for (c = 0; c < limit; c++)
+            System.out.print(result[c]);
+        System.out.println();
     }
 }
