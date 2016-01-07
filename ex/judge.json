@@ -5,6 +5,7 @@
         "java": "java",
         "py": "python",
         "rb": "ruby",
+        "go": "golang",
         "clj": "clojure"
     },
     "c": {
@@ -24,6 +25,12 @@
         "compile": "javac %s",
         "run": "java %s",
         "delete": "*.class"
+    },
+    "golang": {
+        "type": "compiled",
+        "compile": "go build %s",
+        "run": "%s",
+        "delete": "*.exe"
     },
     "clojure": {
         "type": "interpreted",
