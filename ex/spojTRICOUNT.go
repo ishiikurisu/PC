@@ -10,7 +10,6 @@ func tricount(N uint64) uint64 {
     r = 1
     for i = 1; i <= N; i++ {
         s += 1
-        
     }
 
     return s
