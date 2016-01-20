@@ -46,18 +46,12 @@ def run(LANG, CODE, OS_NAME):
     print '... # %.3fs' % (time.time() - now)
 
 def delete(LANG, CODE, OS_NAME):
+    command = 'rm ' if OS_NAME == UNIX else 'del '
     type = LANG['type']
-    comand = ''
-
-    if OS_NAME == UNIX:
-        command = 'rm '
-    else:
-        command = 'del '
 
     if type == 'binary' or type == 'compiled':
         command += LANG['delete']
-
-    execute(command)
+        execute(command)
 
 def setup():
     global LANG
