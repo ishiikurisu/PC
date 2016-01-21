@@ -4,12 +4,10 @@ import "fmt"
 func tricount(N uint64) uint64 {
     var s uint64
     var i uint64
-    var r uint64
 
-    s = 0
-    r = 1
-    for i = 1; i <= N; i++ {
-        s += 1
+    s = N*N
+    for i = 1; i < N; i++ {
+        s += i * (N-i)
     }
 
     return s
