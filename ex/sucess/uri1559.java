@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.*;
 
-/* wrong answer (10%) */
 public class uri1559
 {
     static InputStreamReader ISR = new InputStreamReader(System.in);
@@ -9,6 +8,7 @@ public class uri1559
     static String[] moves = {"DOWN", "LEFT", "RIGHT", "UP"};
     static int[][] board2048 = new int[4][4];
     static boolean[] possible = new boolean[4];
+    static boolean has2048 = false;
 
     public static void main(String[] args)
     throws IOException
@@ -29,22 +29,28 @@ public class uri1559
     public static void load()
     throws IOException
     {
+        has2048 = false;
         for (int i = 0; i < 4; ++i)
         {
             String[] line = BR.readLine().split("\\s+");
             for (int j = 0; j < 4; ++j)
             {
                 board2048[j][i] = Integer.parseInt(line[j]);
+                if (board2048[j][i] == 2048) {
+                    has2048 = true;
+                }
             }
         }
     }
 
     public static void update()
     {
-        possible[0] = down();
-        possible[1] = left();
-        possible[2] = right();
-        possible[3] = up();
+        if (!has2048) {
+            possible[0] = down();
+            possible[1] = left();
+            possible[2] = right();
+            possible[3] = up();
+        }
     }
 
     public static void draw()
@@ -52,6 +58,7 @@ public class uri1559
         String result = "NONE";
         boolean flag = false;
 
+        if (!has2048)
         for (int i = 0; i < possible.length; ++i) {
             if (possible[i] == true) {
                 if (flag) {
