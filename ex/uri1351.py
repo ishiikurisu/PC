@@ -84,13 +84,17 @@ def draw():
   global memo
 
   memo = new_memo(size_market, size_itens)
+  for j in xrange(size_itens-1, -1, -1):
+    for i in xrange(size_market-1, -1, -1):
+      dynammic(i, j)
 
-  dynammic(0, 0) # or
-  i, j = size_market-1, size_itens-1
-  while i > 0 or j > 0:
-    dynammic(i, j)
-    i, j = next_iter(i, j)
+  # dynammic(0, 0) # or
+  # i, j = size_market-1, size_itens-1
+  # while i > 0 or j > 0:
+  #   dynammic(i, j)
+  #   i, j = next_iter(i, j)
 
+  print memo
   write_result()
 
 # Output:
