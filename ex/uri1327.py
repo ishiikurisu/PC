@@ -13,7 +13,7 @@ def draw(players, cards):
         return draw(players, cards[len(players):])
 
 def main():
-    if input() == 0: raise StandardError
+    assert input() is not 0
     players, cards = raw_input().split(' '), []
     for _ in xrange(4):
         for card in map(int, raw_input().split(' ')):
