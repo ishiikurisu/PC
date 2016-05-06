@@ -1,16 +1,35 @@
 def min_index(cards):
-    index, min = 0, cards[0]
+    index, floor = 0, cards[0]
     for i, card in enumerate(cards):
-        if card < min:
-            index, min = i, card
-    return index
+        if card < floor:
+            index, floor = i, card
+    return floor
+
+def remove_with_min(players, cards):
+    how_many = len(players)
+    hand = cards[:how_many]
+    remaining = list()
+    limit = 0
+
+    try:
+        limit = min_index(hand)
+    except:
+        return remaining
+
+    for i, card in enumerate(hand):
+        if card is not limit:
+            remaining.append(players[i])
+    return remaining
 
 def draw(players, cards):
-    if len(players) == 1:
-        return players[0]
+    remaining = remove_with_min(players, cards)
+    how_many = len(remaining)
+    if how_many is 0:
+        return ' '.join(players)
+    elif how_many is 1:
+        return remaining[0]
     else:
-        players.pop(min_index(cards[0:len(players)]))
-        return draw(players, cards[len(players):])
+        return draw(remaining, cards[how_many+1:])
 
 def main():
     assert input() is not 0
@@ -22,5 +41,7 @@ def main():
 
 if __name__ == '__main__':
     while True:
-        try: main()
-        except: break
+        try:
+            main()
+        except:
+            break
