@@ -40,10 +40,10 @@ def run(LANG, CODE, OS_NAME):
     elif type == 'interpreted':
         command += LANG['run'] % (CODE)
 
-    print '--- # judging'
+    print('--- # judging')
     now = time.time()
     execute(command)
-    print '... # %.3fs' % (time.time() - now)
+    print('... # %.3fs' % (time.time() - now))
 
 def delete(LANG, CODE, OS_NAME):
     command = 'rm ' if OS_NAME == UNIX else 'del '

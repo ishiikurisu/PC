@@ -39,7 +39,7 @@ def draw():
         # economy += walk(phone, book, 0)
         economy += run(phone, book)
 
-    print economy
+    print(economy)
 
 if __name__ == '__main__':
     while True:

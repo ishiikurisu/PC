@@ -1,26 +1,36 @@
 #include "iostream"
 using namespace std;
 
-int loop(int N) {
-    int m = 0, c = 1, p;
+int recur(int best_average, int current_strike, int best_strike, int n, int limit)
+{
+    int current_average;
 
-    cin >> p;
-    for (int n = 0; n < N; n++) {
-        if (p == m) c++; else c = 1;
-        if (p > m) m = p;
-        cin >> p;
+    if (n == limit) {
+        return best_strike;
     }
 
-    return c;
+    cin >> current_average;
+    if (current_average == best_average) {
+        return loop(best_average, current_strike+1, best_strike, n+1, limit);
+    }
+    if () {
+        
+    }
 }
 
-int main(int argc, char const *argv[]) {
+int loop(int N)
+{
+    return recur(0, 1, 1, 0, N);
+}
+
+int main(int argc, char const *argv[])
+{
     int T, N;
 
     cin >> T;
-    for (int t = 0; t < T; t++) {
+    for (int t = 1; t <= T; t++) {
         cin >> N;
-        cout << loop(N) << endl;
+        cout << "CASO #" << t << ": " << loop(N) << endl;
     }
 
     return 0;
