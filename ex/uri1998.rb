@@ -9,11 +9,11 @@ def rearrange boxes, chosen
   boxes.each_index do |i|
     box = boxes.at i
     if i < chosen
-      stuff.push box+1 
+      stuff.push box+1
     elsif i == chosen
       stuff.push 0
     else
-      stuff.push box 
+      stuff.push box
     end
   end
 
@@ -26,10 +26,10 @@ def calculate boxes
   if not_zeroes? boxes
     return true
   end
-  
+
   boxes.each_index do |i|
     if boxes[i] == i+1
-      result = result || calculate(rearrange boxes, i)
+      result = result || calculate(rearrange(boxes, i))
     end
   end
 
