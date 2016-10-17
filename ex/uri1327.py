@@ -1,47 +1,32 @@
-def min_index(cards):
-    index, floor = 0, cards[0]
-    for i, card in enumerate(cards):
-        if card < floor:
-            index, floor = i, card
-    return floor
-
-def remove_with_min(players, cards):
-    how_many = len(players)
-    hand = cards[:how_many]
-    remaining = list()
-    limit = 0
-
-    try:
-        limit = min_index(hand)
-    except:
-        return remaining
-
-    for i, card in enumerate(hand):
-        if card is not limit:
-            remaining.append(players[i])
-    return remaining
-
-def draw(players, cards):
-    remaining = remove_with_min(players, cards)
-    how_many = len(remaining)
-    if how_many is 0:
-        return ' '.join(players)
-    elif how_many is 1:
-        return remaining[0]
-    else:
-        return draw(remaining, cards[how_many+1:])
+def draw(names, cards):
+    while True:
+        hands = cards[0:len(names)]
+        cards = cards[len(names):-1]
+        floor = min(hands)
+        next_names = []
+        for i, hand in enumerate(hands):
+            if hands[i] > floor:
+                next_names.append(names[i])
+        print('{0} {2} {1}'.format(floor, names, hands))
+        if len(next_names) is 0:
+            next_names = names
+            break
+        else:
+            names = next_names
+    return ' '.join(names)
 
 def main():
-    assert input() is not 0
-    players, cards = raw_input().split(' '), []
-    for _ in xrange(4):
-        for card in map(int, raw_input().split(' ')):
+    assert int(input()) is not 0
+    names = input().split(' ')
+    cards = list()
+    for _ in range(4):
+        for card in map(int, input().split(' ')):
             cards.append(card)
-    print draw(players, cards)
+    print(draw(names, cards))
 
 if __name__ == '__main__':
     while True:
         try:
             main()
         except:
-            break
+            raise
