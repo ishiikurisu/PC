@@ -2,12 +2,15 @@ def draw(names, cards):
     while True:
         hands = cards[0:len(names)]
         cards = cards[len(names):-1]
-        floor = min(hands)
+        if len(hands):
+            floor = min(hands)
+        else:
+            break
         next_names = []
         for i, hand in enumerate(hands):
             if hands[i] > floor:
                 next_names.append(names[i])
-        print('{0} {2} {1}'.format(floor, names, hands))
+        # print('{0} {2} {1}'.format(floor, names, hands))
         if len(next_names) is 0:
             next_names = names
             break
@@ -29,4 +32,4 @@ if __name__ == '__main__':
         try:
             main()
         except:
-            raise
+            break
