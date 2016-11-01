@@ -1,0 +1,54 @@
+{
+    "languages": {
+        "cpp": "c++",
+        "c": "c",
+        "java": "java",
+        "py": "python",
+        "rb": "ruby",
+        "go": "golang",
+        "cs": "csharp",
+        "clj": "clojure"
+    },
+    "c": {
+        "type": "binary",
+        "compile": "gcc %s -o %s -lm -O2",
+        "run": null,
+        "delete": "*.exe"
+    },
+    "c++": {
+        "type": "binary",
+        "compile": "g++ %s -o %s -lm -O2",
+        "run": null,
+        "delete": "*.exe"
+    },
+    "java": {
+        "type": "compiled",
+        "compile": "javac %s",
+        "run": "java %s",
+        "delete": "*.class"
+    },
+    "golang": {
+        "type": "compiled",
+        "compile": "go build %s",
+        "run": "%s",
+        "delete": "*.exe"
+    },
+    "clojure": {
+        "type": "interpreted",
+        "run": "clj %s"
+    },
+    "python": {
+        "type": "interpreted",
+        "run": "python %s"
+    },
+    "ruby": {
+        "type": "interpreted",
+        "run": "ruby %s"
+    },
+    "csharp": {
+        "type": "compiled",
+        "compile": "csc %s",
+        "run": "%s",
+        "delete": "*.exe"
+    }
+}
