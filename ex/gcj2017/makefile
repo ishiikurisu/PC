@@ -1,4 +1,12 @@
-problem: Bl
+problem: Al
+
+A:
+	python A.day.py < A.in > A.out
+	cat A.out
+
+Al:
+	python A.day.py < Al.in > Al.out
+	cat Al.out
 
 B:
 	gcc B.c -o B.exe -O2 -lm -Wall
