@@ -1,4 +1,4 @@
-problem: Al
+problem: C
 
 A:
 	python A.day.py < A.in > A.out
@@ -15,3 +15,7 @@ B:
 
 Bl:
 	python B.py < B-large.in > B.out
+
+C:
+	python C.py < C.txt > C.out
+	cat C.out
