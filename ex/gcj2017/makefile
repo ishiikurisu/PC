@@ -17,5 +17,5 @@ Bl:
 	python B.py < B-large.in > B.out
 
 C:
-	python C.py < C.txt > C.out
+	python C.py < C.in > C.out
 	cat C.out
