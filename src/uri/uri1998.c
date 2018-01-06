@@ -24,6 +24,9 @@ bool play(int N, int *P) {
             r |= play(N, nP);
             free(nP);
         }
+        else if (P[i] > i+1) {
+            return false;
+        }
         if (P[i] > 0) {
             e = false;
         }
