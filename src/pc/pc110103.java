@@ -1,21 +1,26 @@
+package pc;
+
 import java.io.*;
 
 public class pc110103 {
-  static Scanner input = new Scanner(System.in);
+  static InputStreamReader ir = new InputStreamReader(System.in);
+  static BufferedReader in = new BufferedReader(ir);
   static double totalCost;
   static double medium;
   static double[] costs;
 
-  public static boolean readData() {
+  public static boolean readData() throws IOException {
     int quantity = 0;
     totalCost = 0.0;
 
-    quantity = input.nextInt();
+    String line = in.readLine();
+    quantity = Integer.parseInt(line);
     if (quantity == 0) return false;
 
     costs = new double[quantity];
     for (int i = 0; i < quantity; ++i) {
-      costs[i] = input.nextDouble();
+      line = in.readLine();
+      costs[i] = Double.parseDouble(line);
       totalCost += costs[i];
     }
     medium = totalCost/quantity;
@@ -38,7 +43,7 @@ public class pc110103 {
     System.out.printf("%.2f\n", difference/2);
   }
 
-  public static final void main(String args[]) {
+  public static final void main(String args[]) throws IOException {
     boolean flag = true;
 
     flag = readData();
